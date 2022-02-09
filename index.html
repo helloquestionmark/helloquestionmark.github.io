@@ -81,6 +81,13 @@ body {
 			deco.innerText = decrypt(dec.value);
 			enc.value = decrypt(dec.value);
 		}
+		enc.onpaste = function() {
+			enco.innerText = encrypt(enc.value);
+		}
+		dec.onpaste = function() {
+			deco.innerText = decrypt(dec.value);
+			enc.value = decrypt(dec.value);
+		}
 	</script>
 </body>
 </html>
