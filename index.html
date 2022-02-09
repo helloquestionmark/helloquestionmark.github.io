@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Caesar Cipher!</title>
+</head>
+<style>
+
+
+body {
+  margin: 0;
+  padding: 10%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: #293f4a;
+  color: white;
+  font-family: Arial;
+  letter-spacing: 3px;
+}
+</style>
+<body>
+	<div>
+		<h1>Encrypt</h1>
+		<input type="text" id="Encrypt" />
+		<p>Encrypted: <span id="outEnc"></span></p>
+		<hr>
+		<h1>Decrypt</h1>
+		<input type="text" id="Decrypt" />
+		<p>Decrypted: <span id="outDec"></span></p>
+	</div>
+	<script>
+	
+	
+	var key = 7;
+	var s = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
+
+	function encrypt(msg)
+	{
+		var encMsg = "";
+		for(var i = 0; i < msg.length; i++)
+		{
+			var code = msg.charCodeAt(i);
+
+			if (code >= 32 && code <= 126)
+			{
+				code = (code + key) % 127;
+				if(code <= 32) {code += 32};
+			}
+			encMsg += String.fromCharCode(code);
+		}
+		return encMsg;
+	}
+	function decrypt(msg)
+	{
+		var encMsg = "";
+		for(var i = 0; i < msg.length; i++)
+		{
+			var code = msg.charCodeAt(i);
+
+			if (code >= 32 && code <= 126)
+			{
+				if(code >= 39) {
+					code = (code - key);
+				}
+				else {
+					code = code - key + 127 - 32; 
+				}
+			}
+			encMsg += String.fromCharCode(code);
+		}
+		return encMsg;
+	}
+	var enc = document.getElementById('Encrypt');
+    var dec = document.getElementById('Decrypt');
+    var enco = document.getElementById('outEnc');
+    var deco = document.getElementById('outDec');
+
+		enc.onkeyup = function() {
+			enco.innerText = encrypt(enc.value);
+		}
+		dec.onkeyup = function() {
+			deco.innerText = decrypt(dec.value);
+			enc.value = decrypt(dec.value);
+		}
+	</script>
+</body>
+</html>
